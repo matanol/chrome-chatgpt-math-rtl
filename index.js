@@ -33,7 +33,7 @@ const chatGPTMathRTL = () => {
 };
 
 // A debounced version of chatGPTMathRTL
-const debouncedChatGPTMathRTL = debounce(chatGPTMathRTL, 1000);
+const debouncedChatGPTMathRTL = debounce(chatGPTMathRTL, 500);
 
 const observer = new MutationObserver((mutationsList) => {
   for (let mutation of mutationsList) {
