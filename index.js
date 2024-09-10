@@ -21,11 +21,15 @@ const chatGPTMathRTL = () => {
   let updateCount = 0;
 
   latexElements.forEach((element) => {
-    element.setAttribute("dir", "ltr"); // Add left to right direction for Latex elements
-    updateCount++;
+    if (!element.hasAttribute("dir")) {
+      element.setAttribute("dir", "ltr"); // Add left to right direction for Latex elements
+      updateCount++;
+    }
   });
 
-  console.log(`[chatGPT-Math-RTL] - Updated ${updateCount} elements.`);
+  if (updateCount > 0) {
+    console.log(`[chatGPT-Math-RTL] - Updated ${updateCount} elements.`);
+  }
 };
 
 // A debounced version of chatGPTMathRTL
