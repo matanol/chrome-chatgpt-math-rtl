@@ -1,0 +1,20 @@
+{
+  "name": "chrome-chatgpt-math-rtl",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matanol/chrome-chatgpt-math-rtl.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matanol/chrome-chatgpt-math-rtl/issues"
+  },
+  "homepage": "https://github.com/matanol/chrome-chatgpt-math-rtl#readme"
+}
