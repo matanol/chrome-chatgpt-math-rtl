@@ -1,12 +1,17 @@
 {
-  "manifest_version": 3,
-  "name": "ChatGPT Math support with RTL",
-  "version": "1.0",
-  "permissions": ["activeTab", "scripting"],
-  "content_scripts": [
-    {
-      "matches": ["https://chatgpt.com/*"],
-      "js": ["index.js"]
-    }
-  ]
+    "manifest_version": 3,
+    "name": "ChatGPT Math RTL Support",
+    "description": "Enable support for ChatGPT math to work with right to left languages like Hebrew/Arabic",
+    "version": "1.0",
+    "permissions": ["tabs", "activeTab", "storage"],
+    "action": {
+        "default_popup": "popup.html",
+        "default_title": "Toggle Debugging"
+    },
+    "content_scripts": [
+        {
+            "matches": ["https://chatgpt.com/*"],
+            "js": ["index.js"]
+        }
+    ]
 }

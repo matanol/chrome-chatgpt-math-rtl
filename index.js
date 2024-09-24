@@ -1,48 +1,46 @@
-console.log(`[chatGPT-Math-RTL] - Loaded`);
-
-const debounce = (func, timeout) => {
-  let timer;
-
-  return (...args) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      func.apply(this, args);
-    }, timeout);
-  };
-};
+console.log("[chatGPT-Math-RTL] - Loaded");
 
 const chatGPTMathRTL = () => {
-  const LATEX_CLASS_PREFIX = "katex";
+    const LATEX_CLASS_PREFIX = "katex";
 
-  const latexElements = document.querySelectorAll(
-    `[class^="${LATEX_CLASS_PREFIX}"]`
-  );
+    const latexElements = document.querySelectorAll(
+        `[class^="${LATEX_CLASS_PREFIX}"]:not([dir="ltr"])`
+    );
 
-  let updateCount = 0;
-
-  latexElements.forEach((element) => {
-    if (!element.hasAttribute("dir")) {
-      element.setAttribute("dir", "ltr"); // Add left to right direction for Latex elements
-      updateCount++;
+    if (latexElements.length === 0) {
+        return;
     }
-  });
 
-  if (updateCount > 0) {
-    console.log(`[chatGPT-Math-RTL] - Updated ${updateCount} elements.`);
-  }
+    let updateCount = 0;
+
+    latexElements.forEach((element) => {
+        element.setAttribute("dir", "ltr"); // Add left to right direction for Latex elements
+        updateCount++;
+    });
+
+    chrome.storage.sync.get(["debug"], function (result) {
+        const debug = result.debug || false;
+
+        if (debug) {
+            console.log(
+                `[chatGPT-Math-RTL] - Updated ${updateCount} elements.`
+            );
+        }
+    });
 };
 
-// A debounced version of chatGPTMathRTL
-const debouncedChatGPTMathRTL = debounce(chatGPTMathRTL, 500);
+function observeBody() {
+    const observer = new MutationObserver(chatGPTMathRTL);
+    observer.observe(document.body, { childList: true, subtree: true });
+}
 
-const observer = new MutationObserver((mutationsList) => {
-  for (let mutation of mutationsList) {
-    if (mutation.type === "childList" || mutation.type === "attributes") {
-      debouncedChatGPTMathRTL();
-    }
-  }
+// Set up observer to detect when document.body changes
+const observer = new MutationObserver(() => {
+    observeBody();
 });
 
-const config = { attributes: true, childList: true, subtree: true };
-
-observer.observe(document.body, config);
+// Observe for any changes in the document's structure (in case body gets replaced)
+observer.observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+});
