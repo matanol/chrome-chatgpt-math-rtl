@@ -7,9 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     debugToggle.addEventListener("change", function () {
         const isEnabled = debugToggle.checked;
-
-        chrome.storage.sync.set({ debug: isEnabled }, function () {
-            console.log("Debug mode set to:", isEnabled);
-        });
+        chrome.storage.sync.set({ debug: isEnabled });
     });
 });
